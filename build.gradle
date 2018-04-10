@@ -67,7 +67,7 @@ dependencies {
 
 
     compile 'net.karneim:pojobuilder:3.4.0'
-// https://mvnrepository.com/artifact/org.springframework/spring-tx
+    // https://mvnrepository.com/artifact/org.springframework/spring-tx
     compile group: 'org.springframework', name: 'spring-tx', version: '5.0.0.RELEASE'
 
     testCompile ('junit:junit:4.12') {

@@ -7,7 +7,7 @@ import lombok.Data;
 public class ArticleItemBean {
 
     public Long amount;
-    public Long instock;
+    public Long inStock;
     public String size;
 
     public ArticleItemBean() {
@@ -21,12 +21,12 @@ public class ArticleItemBean {
         this.amount = amount;
     }
 
-    public Long getInstock() {
-        return instock;
+    public Long getInStock() {
+        return inStock;
     }
 
-    public void setInstock(Long instock) {
-        this.instock = instock;
+    public void setInStock(Long inStock) {
+        this.inStock = inStock;
     }
 
     public String getSize() {

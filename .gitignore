@@ -30,7 +30,7 @@ hs_err_pid*
 # IntelliJ
 out/
 build/
-target/
+target/Q
 
 # OS X
 .DS_Store

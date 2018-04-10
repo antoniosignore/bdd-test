@@ -200,7 +200,7 @@ public class UserSteps {
         world.setResponse(responseEntity);
     }
 
-    @When("^I retrieve all products$")
+    @When("^I retrieve all articles$")
     public void iRetrieveAProducts() throws Throwable {
         String url = world.getHost() + "/replists/"+world.getReplist().id + "/articles";
 
@@ -241,13 +241,10 @@ public class UserSteps {
     }
 
 
-    @When("^I add a product: \"([^\"]*)\"$")
+    @When("^I get a product: \"([^\"]*)\"$")
     public void addProduct(String pid) {
-
-        Utils.json("WORLD:", world);
-        log.debug("world = " + world);
-
         String url = world.getHost() + "/replists/"+world.getReplist().id+"/articles/"+pid;
+        log.debug("GET url = " + url);
 
         world.setArticleId(pid);
 
@@ -259,24 +256,19 @@ public class UserSteps {
         articleBean.name = "PIPO";
 
         final ResponseEntity<ArticleBean> responseEntity = restTemplate.exchange(
-                url, HttpMethod.GET,
-                createHttpEntityWithTokenAndBody(articleBean), ArticleBean.class);
+                url, HttpMethod.GET, createHttpEntityWithTokenAndBody(articleBean), ArticleBean.class);
 
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
-            log.debug("", responseEntity.getBody());
-
-            Utils.json("Response from replist service:", responseEntity.getBody());
-
+            Utils.json("GET replist service:", responseEntity.getBody());
             world.setSizesGrid(responseEntity.getBody());
         }
         world.setResponse(responseEntity);
     }
 
 
-    @When("^I add a need for product: \"([^\"]*)\"$")
+    @When("^I PUT a need for product: \"([^\"]*)\"$")
     public void iAddANeed(String pid) throws Throwable {
-        Utils.json("WORLD:", world);
         log.debug("world = " + world);
 
         String url = world.getHost() + "/replists/"+world.getReplist().id+"/articles/"+pid;

@@ -62,7 +62,7 @@ public class UserSteps {
         String url = world.getHost() + "/sessions";
         final ResponseEntity<Session> responseEntity = restTemplate.exchange(
                 url,
-                HttpMethod.PUT,
+                HttpMethod.POST,
                 createHttpEntity(world.getUsername()),
                 Session.class);
         if (responseEntity.getBody() != null) {

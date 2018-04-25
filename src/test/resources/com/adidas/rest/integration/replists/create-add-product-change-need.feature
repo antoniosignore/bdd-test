@@ -1,15 +1,15 @@
 Feature: create Replist
 
   Background:
-    Given I am username: "antonio.signore" host: "http://localhost:9090"
+    Given I am username: "antonio.signore" host: "http://localhost:8888"
 
   Scenario: Create product, add need flow
     When I create a session
     Then I get a CREATED response
-    Given Host: "http://localhost:8080"
+    Given Host: "http://localhost:9999"
     When I create a replist with name: "Mylist"
     Then I get a CREATED response
-    When I get a product: "PID1"
+    When I get a product: "C77124"
     Then I get a OK response
     When I PUT a need for product: "PID1"
     Then I get a OK response

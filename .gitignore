@@ -31,9 +31,12 @@ hs_err_pid*
 out/
 build/
 target/Q
+target
 
 # OS X
 .DS_Store
 
 .tmp
+
+
 

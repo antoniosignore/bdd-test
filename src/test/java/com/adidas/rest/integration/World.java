@@ -2,7 +2,7 @@ package com.adidas.rest.integration;
 
 import com.adidas.model.model.ArticleBean;
 import com.adidas.model.model.Replist;
-import com.adidas.model.model.Session;
+import com.adidas.sessions.dto.SessionDTO;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class World {
 
     private ResponseEntity<?> response;
-    private Session session;
+    private SessionDTO session;
     private Replist replist;
 
     private String username;
@@ -77,11 +77,11 @@ public class World {
         this.authToken = authToken;
     }
 
-    public void setSession(Session session) {
+    public void setSession(SessionDTO session) {
         this.session = session;
     }
 
-    public Session getSession() {
+    public SessionDTO getSession() {
         return session;
     }
 

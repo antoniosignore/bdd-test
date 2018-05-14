@@ -3,8 +3,11 @@ package com.adidas.rest.integration;
 
 import com.adidas.model.model.*;
 import com.adidas.rest.integration.utils.Utils;
+import com.adidas.sessions.dto.AppDataDTO;
+import com.adidas.sessions.dto.Role;
+import com.adidas.sessions.dto.SessionDTO;
+import com.adidas.sessions.dto.UserDTO;
 import com.google.common.collect.ImmutableList;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.slf4j.LoggerFactory;
@@ -16,11 +19,16 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @CucumberStepsDefinition
 public class UserSteps {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(CommonSteps.class);
+
+    String DEVICE_ID = "78CB3ED4-FFFF-4540-9711-BE3CCF6099B5";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -33,14 +41,34 @@ public class UserSteps {
         return new HttpEntity<>(entity, httpHeaders);
     }
 
+    private SessionDTO createDefaultSessionDTO() {
+        SessionDTO sessionDTO = new SessionDTO();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName("pippo");
+        userDTO.setStoreId("store");
+        userDTO.setScale("XX");
+        userDTO.setRole(Role.SalesFloor);
+        sessionDTO.setUser(userDTO);
+        sessionDTO.setDeviceId(DEVICE_ID);
+        sessionDTO.setAuthToken("jkqwjeqlkwjelkwq");
+        List<AppDataDTO> appDataDTOList = createDefaultAppDataDTOList();
+        sessionDTO.setAppData(appDataDTOList);
+        return sessionDTO;
+    }
+
+    private List<AppDataDTO> createDefaultAppDataDTOList() {
+        List<AppDataDTO> appDataDTOList = new ArrayList<>();
+        AppDataDTO appDataDTO = new AppDataDTO();
+        appDataDTO.setBundleId("com.adidas.sam.replenishment");
+        Map<String, String> valuesMap = new LinkedHashMap<>();
+        for(int i = 1; i <= 5; i++) {valuesMap.put(("key" + i), ("value" + i));}
+        appDataDTO.setValues(valuesMap);
+        appDataDTOList.add(appDataDTO);
+        return appDataDTOList;
+    }
+
     private HttpEntity createHttpEntity(final String username) {
-        Session session = new Session();
-        session.deviceId = "my_device";
-        session.role = Role.SalesFloor;
-        session.storeId = "NYC_Store";
-        session.username = username;
-        session.sizeScale = "pippo";
-        return new HttpEntity<>(session);
+        return new HttpEntity<>(createDefaultSessionDTO());
     }
 
     private HttpEntity createHttpEntityWithTokenAndBody(Object body) {
@@ -60,44 +88,44 @@ public class UserSteps {
     @When("^I create a session$")
     public void I_create_a_session() throws Throwable {
         String url = world.getHost() + "/sessions";
-        final ResponseEntity<Session> responseEntity = restTemplate.exchange(
+        final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
                 url,
-                HttpMethod.PUT,
+                HttpMethod.POST,
                 createHttpEntity(world.getUsername()),
-                Session.class);
+                SessionDTO.class);
         if (responseEntity.getBody() != null) {
             Utils.json(responseEntity);
 
-            Session body = responseEntity.getBody();
+            SessionDTO body = responseEntity.getBody();
 
             Utils.json(body);
-            world.setDeviceId(body.deviceId);
-            world.setAuthToken(body.authToken);
+            world.setDeviceId(body.getDeviceId());
+            world.setAuthToken(body.getAuthToken());
             world.setSession(body);
         }
         world.setResponse(responseEntity);
     }
 
-    @When("^I create a profile$")
-    public void I_create_a_profile() throws Throwable {
-        String url = world.getHost() + "/sessions";
-        final ResponseEntity<Session> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.PUT,
-                createHttpEntity(world.getUsername()),
-                Session.class);
-        if (responseEntity.getBody() != null) {
-            Utils.json(responseEntity);
-
-            Session body = responseEntity.getBody();
-
-            Utils.json(body);
-            world.setDeviceId(body.deviceId);
-            world.setAuthToken(body.authToken);
-            world.setSession(body);
-        }
-        world.setResponse(responseEntity);
-    }
+//    @When("^I create a profile$")
+//    public void I_create_a_profile() throws Throwable {
+//        String url = world.getHost() + "/sessions";
+//        final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
+//                url,
+//                HttpMethod.PUT,
+//                createHttpEntity(world.getUsername()),
+//                SessionDTO.class);
+//        if (responseEntity.getBody() != null) {
+//            Utils.json(responseEntity);
+//
+//            Session body = responseEntity.getBody();
+//
+//            Utils.json(body);
+//            world.setDeviceId(body.deviceId);
+//            world.setAuthToken(body.authToken);
+//            world.setSession(body);
+//        }
+//        world.setResponse(responseEntity);
+//    }
 
     @When("^I create a replist with name: \"([^\"]*)\"$")
     public void I_create_a_replist(String replistName) throws Throwable {
@@ -172,13 +200,13 @@ public class UserSteps {
     @When("^I search for the session by deviceId$")
     public void iSearchForTheSessionByDeviceId() throws Throwable {
         String url = world.getHost() + "/sessions?deviceId=" + world.getDeviceId();
-        final ResponseEntity<Session> responseEntity = restTemplate.exchange(
+        final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET, null,
-                Session.class);
+                SessionDTO.class);
         if (responseEntity.getBody() != null) {
             Utils.json(responseEntity);
-            Session body = responseEntity.getBody();
+            SessionDTO body = responseEntity.getBody();
             Utils.json(body);
             world.setResponse(responseEntity);
         }

@@ -1,7 +1,7 @@
 Feature: create profile
 
   Background:
-    Given I am username: "antonio.signore" host: "http://localhost:9090"
+    Given I am username: "antonio.signore" host: "http://localhost:8888"
 
   Scenario: Create Session
     When I create a session

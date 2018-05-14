@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 public class Utils {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Utils.class);
 
-
     public static void json(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(obj);

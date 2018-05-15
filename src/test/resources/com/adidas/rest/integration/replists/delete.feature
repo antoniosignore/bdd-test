@@ -1,7 +1,8 @@
 Feature: delete replist
 
   Background:
-    Given I am username: "antonio.signore" host: "http://localhost:9090"
+    Given Username: "antonio.signore"
+    Given Host: "http://localhost:8888"
 
   Scenario: List all sessions
     When I create a session

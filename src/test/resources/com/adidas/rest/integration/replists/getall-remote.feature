@@ -1,7 +1,8 @@
 Feature: list all profiles
 
   Background:
-    Given I am username: "antonio.signore" host: "http://deheremap6918:8888"
+    Given Username: "antonio.signore"
+    Given Host: "http://localhost:8888"
 
   Scenario: Create replist
     When I create a session

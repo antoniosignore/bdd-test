@@ -1,6 +1,7 @@
 package com.adidas.model.model;
 
 
+import com.adidas.sessions.dto.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

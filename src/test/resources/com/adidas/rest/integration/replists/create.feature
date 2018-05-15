@@ -1,7 +1,8 @@
 Feature: create Replist
 
   Background:
-    Given I am username: "antonio.signore" host: "http://localhost:8888"
+    Given Username: "antonio.signore"
+    Given Host: "http://localhost:8888"
 
   Scenario: Create list
     When I create a session

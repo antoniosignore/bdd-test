@@ -2,6 +2,7 @@ package com.adidas.rest.integration;
 
 import com.adidas.model.model.ArticleBean;
 import com.adidas.model.model.Replist;
+import com.adidas.sessions.dto.Role;
 import com.adidas.sessions.dto.SessionDTO;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
@@ -22,9 +23,13 @@ public class World {
     private String host;
     private String authToken;
     private String deviceId;
+    private String storeId;
     private ArticleBean sizesGrid;
     private String articleId;
-
+    private Role role;
+    private String scale;
+    private String pushToken;
+    private String bundleId;
 
     public void setPerformerCredentials(final String username, final String password, String host) {
         this.username = username;
@@ -45,75 +50,4 @@ public class World {
         this.response = response;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
-    public void setSession(SessionDTO session) {
-        this.session = session;
-    }
-
-    public SessionDTO getSession() {
-        return session;
-    }
-
-    public Replist getReplist() {
-        return replist;
-    }
-
-    public void setReplist(Replist replist) {
-        this.replist = replist;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setSizesGrid(ArticleBean sizesGrid) {
-        this.sizesGrid = sizesGrid;
-    }
-
-    public ArticleBean getSizesGrid() {
-        return sizesGrid;
-    }
-
-    public void setArticleId(String articleId) {
-        this.articleId = articleId;
-    }
-
-    public String getArticleId() {
-        return articleId;
-    }
 }

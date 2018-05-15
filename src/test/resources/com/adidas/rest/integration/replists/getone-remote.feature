@@ -1,7 +1,8 @@
 Feature: Get one article bean
 
   Background:
-    Given I am username: "antonio.signore" host: "http://deheremap6918:8888"
+    Given Username: "antonio.signore"
+    Given Host: "http://localhost:8888"
 
   Scenario: Get one article bean
     When I create a session

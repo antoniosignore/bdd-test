@@ -1,5 +1,6 @@
 package com.adidas.rest.integration;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.slf4j.LoggerFactory;
@@ -12,16 +13,6 @@ public class SecuritySteps {
 
     @Autowired
     private World world;
-
-    @Given("^I am username: \"([^\"]*)\" host: \"([^\"]*)\"$")
-    public void I_am_a_(final String username, String host) {
-        world.setPerformerCredentials(username,host);
-    }
-
-    @Given("^I am username: \"([^\"]*)\" password: \"([^\"]*)\" host: \"([^\"]*)\"$")
-    public void I_am_a__(final String username, final String password, String host) {
-        world.setPerformerCredentials(username, password, host);
-    }
 
     @Given("^Host: \"([^\"]*)\"$")
     public void host(String host) {

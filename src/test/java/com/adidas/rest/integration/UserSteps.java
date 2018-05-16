@@ -19,6 +19,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.*;
 
 @CucumberStepsDefinition
@@ -143,6 +144,7 @@ public class UserSteps {
 
         SessionDTO sessionDTO = world.getSession();
         List<AppDataDTO> appDataList = sessionDTO.getAppData();
+        appDataList.clear();
         appDataList.add(appDataDTO);
 
         HttpEntity entity = new HttpEntity<>(sessionDTO);
@@ -165,17 +167,10 @@ public class UserSteps {
         world.setResponse(responseEntity);
     }
 
-
     @When("^I delete a session$")
     public void I_delete_a_session() throws Throwable {
-
-        String uri = world.getHost() + "/sessions/{deviceId}";
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("deviceId", world.getDeviceId());
-
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete ( uri,  params );
+        String url = world.getHost() + "/sessions/"+world.getDeviceId();
+        restTemplate.delete(new URI(url));
     }
 
     @When("^I create a replist with name: \"([^\"]*)\"$")

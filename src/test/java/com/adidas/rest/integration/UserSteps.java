@@ -130,6 +130,24 @@ public class UserSteps {
         world.setResponse(responseEntity);
     }
 
+    @When("^I get a session$")
+    public void I_get_a_session() throws Throwable {
+
+        String url = world.getHost() + "/sessions/"+world.getDeviceId();
+        final ResponseEntity<SessionDTO> responseEntity = restTemplate.getForEntity(url, SessionDTO.class);
+        if (responseEntity.getBody() != null) {
+            Utils.json(responseEntity);
+
+            SessionDTO body = responseEntity.getBody();
+
+            Utils.json(body);
+            world.setDeviceId(body.getDeviceId());
+            world.setAuthToken(body.getAuthToken());
+            world.setSession(body);
+        }
+        world.setResponse(responseEntity);
+    }
+
     @When("^I patch a session$")
     public void I_patch_a_session() throws Throwable {
 

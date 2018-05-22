@@ -5,7 +5,7 @@ Feature: create profile flow
     Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
 #    Given Host: "http://localhost:8888"
     Given StoreId: "US470179"
-    Given DeviceId: "F1F108BE-D300-4352-8351-81851416FD6B"
+    Given DeviceId
     Given Role: "SalesFloor"
     Given Scale: "CN"
     Given BundleId: "com.adidas.dev.replenishment"

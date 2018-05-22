@@ -3,10 +3,13 @@ package com.adidas.rest.integration;
 import com.adidas.sessions.dto.Role;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import lombok.val;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,7 +31,7 @@ public class CommonSteps {
     @Given("^Username: \"([^\"]*)\"$")
     public void username(String username) {
         log.debug("username = " + username);
-        world.setUsername(username);
+        world.setUsername(username +":" + UUID.randomUUID().toString());
     }
 
     @Given("^Password: \"([^\"]*)\"$")
@@ -48,9 +51,9 @@ public class CommonSteps {
         world.setStoreId(storeId);
     }
 
-    @Given("^DeviceId: \"([^\"]*)\"$")
-    public void deviceId(String storeId) throws Throwable {
-        world.setDeviceId(storeId);
+    @Given("^DeviceId")
+    public void deviceId() throws Throwable {
+        world.setDeviceId(UUID.randomUUID().toString());
     }
 
     @Given("^Role: \"([^\"]*)\"$")

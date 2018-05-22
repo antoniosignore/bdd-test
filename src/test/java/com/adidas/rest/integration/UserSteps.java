@@ -6,10 +6,13 @@ import com.adidas.sessions.dto.AppDataDTO;
 import com.adidas.sessions.dto.SessionDTO;
 import com.adidas.sessions.dto.UserDTO;
 import com.google.common.collect.ImmutableList;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gherkin.deps.com.google.gson.Gson;
 import gherkin.deps.com.google.gson.GsonBuilder;
+import org.junit.Assert;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -56,7 +59,9 @@ public class UserSteps {
         AppDataDTO appDataDTO = new AppDataDTO();
         appDataDTO.setBundleId("com.adidas.sam.replenishment");
         Map<String, String> valuesMap = new LinkedHashMap<>();
-        for(int i = 1; i <= 5; i++) {valuesMap.put(("key" + i), ("value" + i));}
+        for (int i = 1; i <= 5; i++) {
+            valuesMap.put(("key" + i), ("value" + i));
+        }
         appDataDTO.setValues(valuesMap);
         appDataDTOList.add(appDataDTO);
         return appDataDTOList;
@@ -78,34 +83,6 @@ public class UserSteps {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.put("Authorization", ImmutableList.of(authHeader));
         return new HttpEntity<>(httpHeaders);
-    }
-
-    @When("^I create a session json:\"([^\"]*)\"$")
-    public void I_create_a_session_json_content(String json) throws Throwable {
-        String url = world.getHost() + "/sessions";
-
-        System.out.println("json = " + json);
-        Gson gson = new GsonBuilder().create();
-
-        SessionDTO dto = gson.fromJson(json, SessionDTO.class);
-
-            HttpEntity entity = new HttpEntity<>(dto);
-        final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.POST,
-                entity,
-                SessionDTO.class);
-        if (responseEntity.getBody() != null) {
-            Utils.json(responseEntity);
-
-            SessionDTO body = responseEntity.getBody();
-
-            Utils.json(body);
-            world.setDeviceId(body.getDeviceId());
-            world.setAuthToken(body.getAuthToken());
-            world.setSession(body);
-        }
-        world.setResponse(responseEntity);
     }
 
     @When("^I create a session$")
@@ -130,10 +107,84 @@ public class UserSteps {
         world.setResponse(responseEntity);
     }
 
+
+    @When("^I create a (\\d+) sessions$")
+    public void iCreateASession(int i) throws Throwable {
+        String url = world.getHost() + "/sessions";
+
+        for (int j = 0; j < i; j++) {
+
+            final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    createHttpEntity(world.getUsername() + "-" + i),
+                    SessionDTO.class);
+            if (responseEntity.getBody() != null) {
+                SessionDTO body = responseEntity.getBody();
+                world.getResultList().add(body);
+            }
+            world.setResponse(responseEntity);
+
+        }
+    }
+
+    // Assert 1000 sessions
+    
+    
+//    @When("^I create a (\\d+) session$")
+//    public void count_session(int i) throws Throwable {
+//        String url = world.getHost() + "/sessions";
+//
+//
+//        for (int j = 0; j < i; j++) {
+//
+//            final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
+//                    url,
+//                    HttpMethod.POST,
+//                    createHttpEntity(world.getUsername() + "-" + i),
+//                    SessionDTO.class);
+//            if (responseEntity.getBody() != null) {
+//                SessionDTO body = responseEntity.getBody();
+//                world.getResultList().add(body);
+//            }
+//            world.setResponse(responseEntity);
+//
+//        }
+//    }
+
+//
+//    @When("^I create a (\\d+) session$")
+//    public void createNSessions(int i) throws Throwable {
+//        String url = world.getHost() + "/sessions";
+//
+//
+//        for (int j = 0; j < i; j++) {
+//
+//            List<SessionDTO> resultList = world.getResultList();
+//            for (int k = 0; k < resultList.size(); k++) {
+//                SessionDTO sessionDTO = resultList.get(k);
+//
+//
+//            final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
+//                    url,
+//                    HttpMethod.POST,
+//                    createHttpEntity(world.getUsername() + "-" + i),
+//                    SessionDTO.class);
+//            if (responseEntity.getBody() != null) {
+//                SessionDTO body = responseEntity.getBody();
+//                world.getResultList().add(body);
+//            }
+//            world.setResponse(responseEntity);
+//
+//            }
+//
+//        }
+//    }
+
     @When("^I get a session$")
     public void I_get_a_session() throws Throwable {
 
-        String url = world.getHost() + "/sessions/"+world.getDeviceId();
+        String url = world.getHost() + "/sessions/" + world.getDeviceId();
         final ResponseEntity<SessionDTO> responseEntity = restTemplate.getForEntity(url, SessionDTO.class);
         if (responseEntity.getBody() != null) {
             Utils.json(responseEntity);
@@ -151,7 +202,7 @@ public class UserSteps {
     @When("^I patch a session$")
     public void I_patch_a_session() throws Throwable {
 
-        String url = world.getHost() + "/sessions/"+world.getDeviceId();
+        String url = world.getHost() + "/sessions/" + world.getDeviceId();
 
         AppDataDTO appDataDTO = new AppDataDTO();
         appDataDTO.setBundleId(world.getBundleId());
@@ -187,7 +238,7 @@ public class UserSteps {
 
     @When("^I delete a session$")
     public void I_delete_a_session() throws Throwable {
-        String url = world.getHost() + "/sessions/"+world.getDeviceId();
+        String url = world.getHost() + "/sessions/" + world.getDeviceId();
         restTemplate.delete(new URI(url));
     }
 
@@ -278,7 +329,7 @@ public class UserSteps {
 
     @When("^I retrieve a product$")
     public void iRetrieveAProduct() throws Throwable {
-        String url = world.getHost() + "/replists/"+world.getReplist().id + "/articles/1";
+        String url = world.getHost() + "/replists/" + world.getReplist().id + "/articles/1";
 
         final ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url, HttpMethod.GET,
@@ -294,7 +345,7 @@ public class UserSteps {
 
     @When("^I retrieve all articles$")
     public void iRetrieveAProducts() throws Throwable {
-        String url = world.getHost() + "/replists/"+world.getReplist().id + "/articles";
+        String url = world.getHost() + "/replists/" + world.getReplist().id + "/articles";
 
         final ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url, HttpMethod.GET,
@@ -335,7 +386,7 @@ public class UserSteps {
 
     @When("^I get a product: \"([^\"]*)\"$")
     public void addProduct(String pid) {
-        String url = world.getHost() + "/replists/"+world.getReplist().id+"/articles/"+pid;
+        String url = world.getHost() + "/replists/" + world.getReplist().id + "/articles/" + pid;
         log.debug("GET url = " + url);
 
         world.setArticleId(pid);
@@ -363,7 +414,7 @@ public class UserSteps {
     public void iAddANeed(String pid) throws Throwable {
         log.debug("world = " + world);
 
-        String url = world.getHost() + "/replists/"+world.getReplist().id+"/articles/"+pid;
+        String url = world.getHost() + "/replists/" + world.getReplist().id + "/articles/" + pid;
 
         ArticleBean sizesGrid = world.getSizesGrid();
         ArticleItemBean articleItemBean = sizesGrid.sizes.get(0);
@@ -384,4 +435,19 @@ public class UserSteps {
         world.setResponse(responseEntity);
 
     }
+
+    @Then("^Assert (\\d+) sessions$")
+    public void assertSessions(int arg0) throws Throwable {
+
+//
+//        String url = world.getHost() + "/sessions";
+//        final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
+//                url,
+//                HttpMethod.GET,
+//                null,
+//                SessionDTO.class);
+//
+//        Assert.assertEquals(arg0, );
+    }
+
 }

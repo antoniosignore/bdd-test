@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Component
 @Scope("cucumber-glue")
@@ -30,6 +33,8 @@ public class World {
     private String scale;
     private String pushToken;
     private String bundleId;
+
+    List<SessionDTO> resultList = new ArrayList<>();
 
     public void setPerformerCredentials(final String username, final String password, String host) {
         this.username = username;

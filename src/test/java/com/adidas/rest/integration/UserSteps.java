@@ -384,7 +384,7 @@ public class UserSteps {
     }
 
 
-    @When("^I get a product: \"([^\"]*)\"$")
+    @When("^I add a product: \"([^\"]*)\"$")
     public void addProduct(String pid) {
         String url = world.getHost() + "/replists/" + world.getReplist().id + "/articles/" + pid;
         log.debug("GET url = " + url);

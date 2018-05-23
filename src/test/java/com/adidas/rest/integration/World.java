@@ -17,6 +17,8 @@ import java.util.List;
 @Scope("cucumber-glue")
 public class World {
 
+    private String service;
+    private String serverSuffix;
     private ResponseEntity<?> response;
     private SessionDTO session;
     private Replist replist;
@@ -35,24 +37,11 @@ public class World {
     private String bundleId;
 
     List<SessionDTO> resultList = new ArrayList<>();
+    private String branch;
 
-    public void setPerformerCredentials(final String username, final String password, String host) {
-        this.username = username;
-        this.password = password;
-        this.host = host;
-    }
+    public String getAddress(){
+        return branch +"."+service +"."+serverSuffix;
 
-    public void setPerformerCredentials(final String username, String host) {
-        this.username = username;
-        this.host = host;
-    }
-
-    public ResponseEntity<?> getResponse() {
-        return response;
-    }
-
-    public void setResponse(ResponseEntity<?> response) {
-        this.response = response;
     }
 
 }

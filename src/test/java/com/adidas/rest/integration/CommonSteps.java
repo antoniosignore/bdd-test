@@ -3,7 +3,6 @@ package com.adidas.rest.integration;
 import com.adidas.sessions.dto.Role;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import lombok.val;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +25,11 @@ public class CommonSteps {
     public void host(String host) {
         log.debug("host = " + host);
         world.setHost(host);
+    }
+
+    @Given("^Branch: \"([^\"]*)\"$")
+    public void branch(String env) {
+        world.setBranch(env);
     }
 
     @Given("^Username: \"([^\"]*)\"$")

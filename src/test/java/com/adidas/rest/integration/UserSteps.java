@@ -107,7 +107,6 @@ public class UserSteps {
         world.setResponse(responseEntity);
     }
 
-
     @When("^I create a (\\d+) sessions$")
     public void iCreateASession(int i) throws Throwable {
         String url = world.getHost() + "/sessions";
@@ -129,8 +128,6 @@ public class UserSteps {
     }
 
     // Assert 1000 sessions
-    
-    
 //    @When("^I create a (\\d+) session$")
 //    public void count_session(int i) throws Throwable {
 //        String url = world.getHost() + "/sessions";
@@ -453,12 +450,12 @@ public class UserSteps {
     @Given("^Server suffix: \"([^\"]*)\"$")
     public void serverSuffix(String suffix) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        world.getServerSuffix();
+        world.setServerSuffix(suffix);
     }
 
     @Given("^Service: \"([^\"]*)\"$")
     public void service(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        world.getService();
+        world.setService(arg0);
     }
 }

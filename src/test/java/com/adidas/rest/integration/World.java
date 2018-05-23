@@ -40,7 +40,7 @@ public class World {
     private String branch;
 
     public String getAddress(){
-        return branch +"."+service +"."+serverSuffix;
+        return "http://"+branch +"."+service +"."+serverSuffix;
 
     }
 

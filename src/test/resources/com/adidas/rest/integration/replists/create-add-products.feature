@@ -12,9 +12,9 @@ Feature: create Replist
     Then I get a CREATED response
     When I retrieve all lists
     Then I get a OK response
-    When I get a product: "PID1"
+    When I add a product: "PID1"
     Then I get a OK response
-    When I get a product: "PID2"
+    When I add a product: "PID2"
     Then I get a OK response
     When I PUT a need for product: "PID1"
     Then I get a OK response

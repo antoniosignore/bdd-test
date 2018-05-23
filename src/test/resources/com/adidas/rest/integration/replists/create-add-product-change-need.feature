@@ -10,7 +10,7 @@ Feature: create Replist
     Given Host: "http://localhost:9999"
     When I create a replist with name: "Mylist"
     Then I get a CREATED response
-    When I get a product: "C77124"
+    When I add a product: "C77124"
     Then I get a OK response
     When I PUT a need for product: "PID1"
     Then I get a OK response

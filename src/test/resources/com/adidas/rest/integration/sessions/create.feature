@@ -5,7 +5,7 @@ Feature: create profile
 #    Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
     Given Host: "http://localhost:8888"
     Given StoreId: "US470179"
-    Given DeviceId: "F1F108BE-D300-4352-8351-81851416FD6A"
+    Given DeviceId
     Given Role: "SalesFloor"
     Given Scale: "CN"
     Given BundleId: "com.adidas.dev.replenishment"
@@ -21,7 +21,7 @@ Feature: create profile
     Then I get a OK response
     When I create a replist with name: "Mylist"
     Then I get a CREATED response
-    When I get a product: "C77124"
+    When I add a product: "C77124"
     Then I get a OK response
 
 

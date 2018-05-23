@@ -17,6 +17,7 @@ import java.util.List;
 @Scope("cucumber-glue")
 public class World {
 
+    private int counter;
     private String service;
     private String serverSuffix;
     private ResponseEntity<?> response;

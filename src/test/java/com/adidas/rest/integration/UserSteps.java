@@ -282,6 +282,7 @@ public class UserSteps {
                 Replist replist = list.get(i);
                 Utils.json(replist);
             }
+            world.setCounter(list.size());
         }
         world.setResponse(responseEntity);
     }

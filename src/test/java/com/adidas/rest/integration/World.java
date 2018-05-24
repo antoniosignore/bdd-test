@@ -39,10 +39,10 @@ public class World {
 
     List<SessionDTO> resultList = new ArrayList<>();
     private String branch;
+    private String listId;
 
     public String getAddress(){
         return "http://"+branch +"."+service +"."+serverSuffix;
 
     }
-
 }

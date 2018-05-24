@@ -6,13 +6,9 @@ import com.adidas.sessions.dto.AppDataDTO;
 import com.adidas.sessions.dto.SessionDTO;
 import com.adidas.sessions.dto.UserDTO;
 import com.google.common.collect.ImmutableList;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.deps.com.google.gson.Gson;
-import gherkin.deps.com.google.gson.GsonBuilder;
-import org.junit.Assert;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -71,14 +67,14 @@ public class UserSteps {
         return new HttpEntity<>(createDefaultSessionDTO());
     }
 
-    private HttpEntity createHttpEntityWithTokenAndBody(Object body) {
+    private HttpEntity createHttpEntityWithToken(Object body) {
         final String authHeader = "Bearer " + world.getAuthToken();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.put("Authorization", ImmutableList.of(authHeader));
         return new HttpEntity<>(body, httpHeaders);
     }
 
-    private HttpEntity createHttpEntityWithTokenAndBody() {
+    private HttpEntity createHttpEntityWithToken() {
         final String authHeader = "Bearer " + world.getAuthToken();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.put("Authorization", ImmutableList.of(authHeader));
@@ -249,7 +245,7 @@ public class UserSteps {
         final ResponseEntity<Replist> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.POST,
-                createHttpEntityWithTokenAndBody(name),
+                createHttpEntityWithToken(name),
                 Replist.class);
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
@@ -257,12 +253,22 @@ public class UserSteps {
             log.debug("body : " + body);
             Utils.json(body);
             world.setReplist(body);
+            world.setListId(body.id);
         }
 
         world.setResponse(responseEntity);
     }
 
-    /// I retrieve all lists
+    @When("^I delete list")
+    public void I_delete_a_replist()  {
+        String url = world.getHost() + "/replists/" + world.getListId();
+        log.debug("------>  url = " + url);
+        final ResponseEntity<Void> responseEntity =
+                restTemplate.exchange(url,HttpMethod.DELETE, createHttpEntityWithToken(), Void.class);
+        log.debug("responseEntity = " + responseEntity);
+        world.setResponse(responseEntity);
+    }
+
     @When("^I retrieve all lists$")
     public void I_get_all() throws Throwable {
         String url = world.getHost() + "/replists";
@@ -270,7 +276,7 @@ public class UserSteps {
         final ResponseEntity<List<Replist>> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
-                createHttpEntityWithTokenAndBody(),
+                createHttpEntityWithToken(),
                 new ParameterizedTypeReference<List<Replist>>() {
                 });
 
@@ -291,9 +297,11 @@ public class UserSteps {
     public void iDeleteAllLists() throws Throwable {
         String url = world.getHost() + "/replists";
 
+        log.debug("url = " + url);
+
         final ResponseEntity<List<Replist>> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET,
-                        createHttpEntityWithTokenAndBody(), new ParameterizedTypeReference<List<Replist>>() {
+                        createHttpEntityWithToken(), new ParameterizedTypeReference<List<Replist>>() {
                         });
 
         if (responseEntity.getBody() != null) {
@@ -304,8 +312,7 @@ public class UserSteps {
                 Replist replist = list.get(i);
                 Utils.json(replist);
                 url = world.getHost() + "/replists/" + replist.id;
-                restTemplate.exchange(url, HttpMethod.DELETE,
-                        createHttpEntityWithTokenAndBody(), Void.class);
+                final ResponseEntity<Void> exchange = restTemplate.exchange(url, HttpMethod.DELETE, createHttpEntityWithToken(), Void.class);
             }
         }
     }
@@ -331,7 +338,7 @@ public class UserSteps {
 
         final ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url, HttpMethod.GET,
-                createHttpEntityWithTokenAndBody(), String.class);
+                createHttpEntityWithToken(), String.class);
 
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
@@ -347,7 +354,7 @@ public class UserSteps {
 
         final ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url, HttpMethod.GET,
-                createHttpEntityWithTokenAndBody(), String.class);
+                createHttpEntityWithToken(), String.class);
 
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
@@ -367,7 +374,7 @@ public class UserSteps {
         final ResponseEntity<Replist> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.PATCH,
-                createHttpEntityWithTokenAndBody(bean),
+                createHttpEntityWithToken(bean),
                 Replist.class);
 
         if (responseEntity.getBody() != null) {
@@ -397,7 +404,7 @@ public class UserSteps {
         articleBean.name = "PIPO";
 
         final ResponseEntity<ArticleBean> responseEntity = restTemplate.exchange(
-                url, HttpMethod.GET, createHttpEntityWithTokenAndBody(articleBean), ArticleBean.class);
+                url, HttpMethod.GET, createHttpEntityWithToken(articleBean), ArticleBean.class);
 
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
@@ -420,7 +427,7 @@ public class UserSteps {
 
         final ResponseEntity<ArticleBean> responseEntity = restTemplate.exchange(
                 url, HttpMethod.PUT,
-                createHttpEntityWithTokenAndBody(sizesGrid), ArticleBean.class);
+                createHttpEntityWithToken(sizesGrid), ArticleBean.class);
 
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
@@ -434,29 +441,5 @@ public class UserSteps {
 
     }
 
-    @Then("^Assert (\\d+) sessions$")
-    public void assertSessions(int arg0) throws Throwable {
 
-//
-//        String url = world.getHost() + "/sessions";
-//        final ResponseEntity<SessionDTO> responseEntity = restTemplate.exchange(
-//                url,
-//                HttpMethod.GET,
-//                null,
-//                SessionDTO.class);
-//
-//        Assert.assertEquals(arg0, );
-    }
-
-    @Given("^Server suffix: \"([^\"]*)\"$")
-    public void serverSuffix(String suffix) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        world.setServerSuffix(suffix);
-    }
-
-    @Given("^Service: \"([^\"]*)\"$")
-    public void service(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        world.setService(arg0);
-    }
 }

@@ -84,5 +84,15 @@ public class CommonSteps {
         world.setPushToken(pushtoken);
     }
 
+    @Given("^Server suffix: \"([^\"]*)\"$")
+    public void serverSuffix(String suffix) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        world.setServerSuffix(suffix);
+    }
 
+    @Given("^Service: \"([^\"]*)\"$")
+    public void service(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        world.setService(arg0);
+    }
 }

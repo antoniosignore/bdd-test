@@ -16,6 +16,9 @@ Feature: Smoke test develop environment
     Then I get a CREATED response
     When I patch a session
     Then I get a OK response
+    When I search for the session by deviceId
+    Then I get a OK response
+#    Given Host: "http://develop.replist-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
 #    Given Host: "http://develop.replist-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
     Given Host: "http://localhost:9999"
     When I create a replist with name: "Mylist"

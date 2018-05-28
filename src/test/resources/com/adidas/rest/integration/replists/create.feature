@@ -3,6 +3,13 @@ Feature: create Replist
   Background:
     Given Username: "antonio.signore"
     Given Host: "http://localhost:8888"
+    Given Username: "antonio.signore"
+    Given StoreId: "US470179"
+    Given DeviceId
+    Given Role: "SalesFloor"
+    Given Scale: "CN"
+    Given BundleId: "com.adidas.dev.replenishment"
+    Given PushToken: "push_token"
 
   Scenario: Create list
     When I create a session

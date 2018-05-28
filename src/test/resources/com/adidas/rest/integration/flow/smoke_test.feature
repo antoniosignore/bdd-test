@@ -1,9 +1,9 @@
 Feature: Smoke test develop environment
 
   Background:
-    Given Username: "antonio.signore"
 #    Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
     Given Host: "http://localhost:8888"
+    Given Username: "antonio.signore"
     Given StoreId: "US470179"
     Given DeviceId
     Given Role: "SalesFloor"
@@ -14,7 +14,13 @@ Feature: Smoke test develop environment
   Scenario: Create list, add product, add items need flow
     When I create a session
     Then I get a CREATED response
+    When I get a session by device id
+    Then I get a OK response
     When I patch a session
+    Then I get a OK response
+    When I get a session by store id
+    Then I get a OK response
+    When I get a session by store id and role
     Then I get a OK response
 #    Given Host: "http://develop.replist-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
     Given Host: "http://localhost:9999"

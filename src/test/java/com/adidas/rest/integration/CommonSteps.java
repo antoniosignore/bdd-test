@@ -3,6 +3,7 @@ package com.adidas.rest.integration;
 import com.adidas.sessions.dto.Role;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -95,4 +96,11 @@ public class CommonSteps {
         // Write code here that turns the phrase above into concrete actions
         world.setService(arg0);
     }
+
+    @When("^I get by deviceId$")
+    public void iGetByDeviceId() throws Throwable {
+        // add the code to execute the GET / deviceId
+    }
+
+
 }

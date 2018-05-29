@@ -11,6 +11,7 @@ Feature: create profile
     Given BundleId: "com.adidas.dev.replenishment"
     Given PushToken: "push_token"
 
+  @SmokeTest
   Scenario: Create and Delete Session
     When I create a session
     Then I get a CREATED response

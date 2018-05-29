@@ -4,7 +4,7 @@ import com.adidas.sessions.dto.Role;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,9 @@ import java.util.UUID;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+@Slf4j
 @CucumberStepsDefinition
 public class CommonSteps {
-
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     @Autowired
     private World world;

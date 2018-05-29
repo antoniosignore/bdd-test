@@ -5,12 +5,10 @@ import com.adidas.sessions.dto.AppDataDTO;
 import com.adidas.sessions.dto.SessionDTO;
 import com.adidas.sessions.dto.UserDTO;
 import com.adidas.sessions.dto.response.SessionsListResponse;
-import com.google.common.collect.ImmutableList;
 import cucumber.api.java.en.When;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -18,20 +16,15 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.*;
 
+@Slf4j
 @CucumberStepsDefinition
 public class SessionSteps {
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
     private World world;
-
-    private <T> HttpEntity<T> createHttpEntity(final T entity) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        return new HttpEntity<>(entity, httpHeaders);
-    }
 
     private SessionDTO createDefaultSessionDTO() {
         SessionDTO sessionDTO = new SessionDTO();
@@ -62,20 +55,6 @@ public class SessionSteps {
 
     private HttpEntity createHttpEntity(final String username) {
         return new HttpEntity<>(createDefaultSessionDTO());
-    }
-
-    private HttpEntity createHttpEntityWithToken(Object body) {
-        final String authHeader = "Bearer " + world.getAuthToken();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.put("Authorization", ImmutableList.of(authHeader));
-        return new HttpEntity<>(body, httpHeaders);
-    }
-
-    private HttpEntity createHttpEntityWithToken() {
-        final String authHeader = "Bearer " + world.getAuthToken();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.put("Authorization", ImmutableList.of(authHeader));
-        return new HttpEntity<>(httpHeaders);
     }
 
     @When("^I create a session$")

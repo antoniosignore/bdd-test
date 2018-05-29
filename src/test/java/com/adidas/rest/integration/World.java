@@ -1,6 +1,7 @@
 package com.adidas.rest.integration;
 
 import com.adidas.model.model.ArticleBean;
+import com.adidas.model.model.Country;
 import com.adidas.model.model.Replist;
 import com.adidas.sessions.dto.Role;
 import com.adidas.sessions.dto.SessionDTO;
@@ -40,9 +41,6 @@ public class World {
     List<SessionDTO> resultList = new ArrayList<>();
     private String branch;
     private String listId;
+    Country country;
 
-    public String getAddress(){
-        return "http://"+branch +"."+service +"."+serverSuffix;
-
-    }
 }

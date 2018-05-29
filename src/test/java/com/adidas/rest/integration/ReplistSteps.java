@@ -5,7 +5,7 @@ import com.adidas.rest.integration.utils.Utils;
 import com.google.common.collect.ImmutableList;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -16,9 +16,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Slf4j
 @CucumberStepsDefinition
 public class ReplistSteps {
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(CommonSteps.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -77,7 +77,6 @@ public class ReplistSteps {
     @When("^I retrieve all lists$")
     public void I_get_all() throws Throwable {
         String url = world.getHost() + "/replists";
-
         final ResponseEntity<List<Replist>> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -98,29 +97,27 @@ public class ReplistSteps {
         world.setResponse(responseEntity);
     }
 
-    @When("^I delete all lists$")
-    public void iDeleteAllLists() throws Throwable {
-        String url = world.getHost() + "/replists";
-
-        log.debug("url = " + url);
-
-        final ResponseEntity<List<Replist>> responseEntity =
-                restTemplate.exchange(url, HttpMethod.GET,
-                        createHttpEntityWithToken(), new ParameterizedTypeReference<List<Replist>>() {
-                        });
+    // I retrieve list by id
+    @When("^I retrieve list by id$")
+    public void I_get_by_id() throws Throwable {
+        String url = world.getHost() + "/replists/" + world.getListId();
+        final ResponseEntity<Replist> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                createHttpEntityWithToken(),
+                Replist.class);
 
         if (responseEntity.getBody() != null) {
             log.debug("responseEntity = " + responseEntity);
-            List<Replist> list = responseEntity.getBody();
-            log.debug("list : " + list);
-            for (int i = 0; i < list.size(); i++) {
-                Replist replist = list.get(i);
-                Utils.json(replist);
-                url = world.getHost() + "/replists/" + replist.id;
-                final ResponseEntity<Void> exchange = restTemplate.exchange(url, HttpMethod.DELETE, createHttpEntityWithToken(), Void.class);
-            }
+            Replist body = responseEntity.getBody();
+            log.debug("body : " + body);
+            Utils.json(body);
+            world.setReplist(body);
+            world.setListId(body.id);
         }
+        world.setResponse(responseEntity);
     }
+
 
     @When("^I retrieve a product$")
     public void iRetrieveAProduct() throws Throwable {

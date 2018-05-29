@@ -1,5 +1,7 @@
 package com.adidas.rest.integration;
 
+import com.adidas.model.model.SalesSizesCountry;
+import com.adidas.model.model.SalesSizesMultiCountries;
 import com.adidas.model.model.Scale;
 import com.adidas.rest.integration.utils.Utils;
 import cucumber.api.java.en.When;
@@ -24,7 +26,7 @@ public class SizesSteps {
     private World world;
 
     @When("^I get all sizes$")
-    public void iGetAllSizes() throws Throwable {
+    public void iGetAllSizes() {
         String url = world.getHost() + "/scales";
         final ResponseEntity<List<Scale>> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
@@ -38,6 +40,42 @@ public class SizesSteps {
             world.setResponse(responseEntity);
             List<Scale> body = responseEntity.getBody();
             Utils.json("Sizes", body);
+            assert body != null;
+        }
+    }
+
+    @When("^I get sizePage \"([^\"]*)\"$")
+    public void iGetSizePage(String arg0) {
+        String url = world.getHost() + "/sizePage/" + arg0;
+        final ResponseEntity<SalesSizesMultiCountries> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
+                        SalesSizesMultiCountries.class);
+
+        assert responseEntity != null;
+        if (responseEntity.getBody() != null) {
+            Utils.json("Response Entity :", responseEntity);
+            Utils.json("Response Body   :", responseEntity.getBody());
+            world.setResponse(responseEntity);
+            SalesSizesMultiCountries body = responseEntity.getBody();
+            Utils.json("sizePage", body);
+            assert body != null;
+        }
+    }
+
+    @When("^I get sizePage \"([^\"]*)\" and scale \"([^\"]*)\"$")
+    public void iGetSizePageAndScale(String arg0, String arg1) {
+        String url = world.getHost() + "/sizePage/" + arg0 + "/scale/" + arg1;
+        final ResponseEntity<SalesSizesCountry> responseEntity =
+                restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
+                        SalesSizesCountry.class);
+
+        assert responseEntity != null;
+        if (responseEntity.getBody() != null) {
+            Utils.json("Response Entity :", responseEntity);
+            Utils.json("Response Body   :", responseEntity.getBody());
+            world.setResponse(responseEntity);
+            SalesSizesCountry body = responseEntity.getBody();
+            Utils.json("sizePage", body);
             assert body != null;
         }
     }

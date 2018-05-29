@@ -157,4 +157,6 @@ public class SessionSteps {
         String url = world.getHost() + "/sessions/" + world.getDeviceId();
         restTemplate.delete(new URI(url));
     }
+
+
 }

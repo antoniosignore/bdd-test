@@ -1,7 +1,6 @@
 Feature: smoke test country service
 
   Background:
-#    Given Host: "http://localhost:8888"
     Given Host: "http://develop.country-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
 
   @SmokeTest

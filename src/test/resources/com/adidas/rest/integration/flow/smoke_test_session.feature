@@ -1,7 +1,6 @@
 Feature: create profile
 
   Background:
-#    Given Host: "http://localhost:8888"
     Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
     Given Username: "tester"
     Given StoreId: "US470179"

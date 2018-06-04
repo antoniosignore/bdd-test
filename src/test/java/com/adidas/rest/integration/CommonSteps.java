@@ -1,5 +1,6 @@
 package com.adidas.rest.integration;
 
+import com.adidas.configuration.EnvironmentConfiguration;
 import com.adidas.sessions.dto.Role;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,9 +22,13 @@ public class CommonSteps {
     @Autowired
     private World world;
 
+    @Autowired
+    EnvironmentConfiguration environmentConfiguration;
+
     @Given("^Host: \"([^\"]*)\"$")
     public void host(String host) {
         log.debug("host = " + host);
+        log.debug("\n\n\n\n\n\n######### environmentConfiguration = " + environmentConfiguration);
         world.setHost(host);
     }
 

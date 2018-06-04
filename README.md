@@ -28,3 +28,4 @@
 
 ## Command line 
 
+mvn -Dtest=smoke_test.feature test -Dspring.active.profiles=develop

@@ -8,7 +8,7 @@
         <version>1.5.6.RELEASE</version>
     </parent>
 
-    <groupId>example</groupId>
+    <groupId>SAM</groupId>
 
     <artifactId>spring-boot-cucumber</artifactId>
 

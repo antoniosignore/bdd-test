@@ -32,6 +32,30 @@ public class CommonSteps {
         world.setHost(host);
     }
 
+    @Given("^Connect to: \"([^\"]*)\"$")
+    public void connext(String host) {
+        log.debug("\n######### environmentConfiguration = " + environmentConfiguration);
+        switch (host) {
+            case "session":
+                world.setHost(environmentConfiguration.getSessionUrl());
+                break;
+            case "replist":
+                world.setHost(environmentConfiguration.getReplistUrl());
+                break;
+            case "size":
+                world.setHost(environmentConfiguration.getSizeUrl());
+                break;
+            case "country":
+                world.setHost(environmentConfiguration.getCountryUrl());
+                break;
+            case "article":
+                world.setHost(environmentConfiguration.getArticleUrl());
+                break;
+        }
+        log.debug("host = " + host);
+        world.setHost(host);
+    }
+
     @Given("^Branch: \"([^\"]*)\"$")
     public void branch(String env) {
         world.setBranch(env);

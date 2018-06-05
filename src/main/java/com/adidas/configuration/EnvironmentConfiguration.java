@@ -11,10 +11,20 @@ import org.springframework.context.annotation.Configuration;
 public class EnvironmentConfiguration {
 
     @Value("${sam.services.session.url}")
-    private String sessionsUrl;
+    private String sessionUrl;
 
     @Value("${sam.services.replist.url}")
-    private String replistsUrl;
+    private String replistUrl;
+
+    @Value("${sam.services.size.url}")
+    private String sizeUrl;
+
+    @Value("${sam.services.country.url}")
+    private String countryUrl;
+
+    @Value("${sam.services.article.url}")
+    private String articleUrl;
+
 
 
 }

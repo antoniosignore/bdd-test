@@ -7,7 +7,7 @@ Feature: smoke test country service
   Scenario: get sizes
     When I get all sizes
     Then I get a OK response
-    When I get sizePage ""
+    When I get sizePage "AU"
     Then I get a OK response
 #    When I get sizePage "" and scale ""
 #    Then I get a OK response

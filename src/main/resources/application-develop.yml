@@ -5,18 +5,13 @@ logging:
 
 sam:
   services:
-    notification:
-      name: notification
-      url: http://develop.push-notification-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
     size:
-      name: size
       url: http://develop.size-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
     session:
-      name: session
       url: http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
     replist:
-      name: replist
       url: http://develop.replist-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
+    country:
+      url: http://develop.country-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
     article:
-      name: article
       url: http://develop.article-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net

@@ -28,4 +28,4 @@
 
 ## Command line 
 
-mvn -Dtest=smoke_test.feature test -Dspring.active.profiles=develop
+mvn -Dspring.active.profiles=develop -Dtest=com.adidas.rest.integration.flow.smoke_test.feature test 

@@ -46,7 +46,7 @@ public class SizesSteps {
 
     @When("^I get sizePage \"([^\"]*)\"$")
     public void iGetSizePage(String arg0) {
-        String url = world.getHost() + "/sizePage/" + arg0;
+        String url = world.getHost() + "/sizes/sizePage/" + arg0;
         final ResponseEntity<SalesSizesMultiCountries> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
                         SalesSizesMultiCountries.class);
@@ -64,7 +64,7 @@ public class SizesSteps {
 
     @When("^I get sizePage \"([^\"]*)\" and scale \"([^\"]*)\"$")
     public void iGetSizePageAndScale(String arg0, String arg1) {
-        String url = world.getHost() + "/sizePage/" + arg0 + "/scale/" + arg1;
+        String url = world.getHost() + "/sizes/sizePage/" + arg0 + "/scale/" + arg1;
         final ResponseEntity<SalesSizesCountry> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
                         SalesSizesCountry.class);

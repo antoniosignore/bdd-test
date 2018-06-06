@@ -2,7 +2,7 @@ Feature: Smoke test develop environment
 
   Background:
     Given Username: "antonio.signore"
-    Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
+    Given Connect to: "session"
     Given StoreId: "US470179"
     Given DeviceId
     Given Role: "SalesFloor"
@@ -14,7 +14,7 @@ Feature: Smoke test develop environment
   Scenario: Create list, add product, add items need flow
     When I create a session
     Then I get a CREATED response
-    Given Host: "http://develop.replist-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
+    Given Connect to: "replist"
     When I create a replist with name: "Mylist"
     Then I get a CREATED response
     When I retrieve all lists
@@ -25,7 +25,7 @@ Feature: Smoke test develop environment
     Then I get a OK response
     When I delete list
     Then I get a OK response
-    Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
+    Given Connect to: "session"
     When I delete a session
     Then I get a OK response
 

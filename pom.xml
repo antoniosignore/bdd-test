@@ -18,7 +18,7 @@
 
     <name>${project.artifactId}-${project.groupId}</name>
 
-    <url>https://github.com/karlbennett/spring-boot-cucumber-example</url>
+    <!--<url>https://github.com/karlbennett/spring-boot-cucumber-example</url>-->
 
     <properties>
         <java.version>1.8</java.version>

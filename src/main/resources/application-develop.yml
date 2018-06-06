@@ -15,3 +15,5 @@ sam:
       url: http://develop.country-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
     article:
       url: http://develop.article-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
+    store:
+      url: http://staging.store-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net

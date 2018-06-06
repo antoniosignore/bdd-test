@@ -5,6 +5,7 @@ import com.adidas.sessions.dto.Role;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertThat;
 
 @Slf4j
 @CucumberStepsDefinition
+@ToString
 public class CommonSteps {
 
     @Autowired
@@ -28,13 +30,11 @@ public class CommonSteps {
     @Given("^Host: \"([^\"]*)\"$")
     public void host(String host) {
         log.debug("host = " + host);
-        log.debug("\n\n\n\n\n\n######### environmentConfiguration = " + environmentConfiguration);
         world.setHost(host);
     }
 
     @Given("^Connect to: \"([^\"]*)\"$")
     public void connext(String host) {
-        log.debug("\n######### environmentConfiguration = " + environmentConfiguration);
         switch (host) {
             case "session":
                 world.setHost(environmentConfiguration.getSessionUrl());
@@ -51,9 +51,11 @@ public class CommonSteps {
             case "article":
                 world.setHost(environmentConfiguration.getArticleUrl());
                 break;
+            case "store":
+                world.setHost(environmentConfiguration.getStoreUrl());
+                break;
         }
-        log.debug("host = " + host);
-        world.setHost(host);
+        log.debug("--------------> HOST = " + world.getHost());
     }
 
     @Given("^Branch: \"([^\"]*)\"$")

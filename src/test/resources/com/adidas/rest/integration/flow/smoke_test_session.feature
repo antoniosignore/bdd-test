@@ -1,7 +1,7 @@
 Feature: create profile
 
   Background:
-    Given Host: "http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
+    Given Connect to: "session"
     Given Username: "tester"
     Given StoreId: "US470179"
     Given DeviceId
@@ -12,6 +12,8 @@ Feature: create profile
 
   @SmokeTest
   Scenario: Create and Delete Session
+#    When I get a session by device id - need to manage the exception
+#    Then I get a NOT_FOUND response
     When I create a session
     Then I get a CREATED response
     When I get a session by device id

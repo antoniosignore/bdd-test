@@ -25,6 +25,8 @@ public class EnvironmentConfiguration {
     @Value("${sam.services.article.url}")
     private String articleUrl;
 
+    @Value("${sam.services.store.url}")
+    private String storeUrl;
 
 
 }

@@ -4,12 +4,13 @@ import com.adidas.rest.integration.World;
 import com.google.common.collect.ImmutableList;
 import gherkin.deps.com.google.gson.Gson;
 import gherkin.deps.com.google.gson.GsonBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 
+@Slf4j
 public class Utils {
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Utils.class);
 
     public static void json(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -20,8 +21,7 @@ public class Utils {
     public static void json(String title, Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(obj);
-        log.debug("\n"+title);
-        log.debug("\n"+json);
+        log.debug("\n"+title+":\n"+json);
     }
 
     public static HttpEntity createHttpEntityWithToken(Object body, World world) {

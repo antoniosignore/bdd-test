@@ -53,10 +53,8 @@ public class ReplistSteps {
                 createHttpEntityWithToken(name),
                 Replist.class);
         if (responseEntity.getBody() != null) {
-            log.debug("responseEntity = " + responseEntity);
+            Utils.json("Response entity:" , responseEntity);
             Replist body = responseEntity.getBody();
-            log.debug("body : " + body);
-            Utils.json(body);
             world.setReplist(body);
             world.setListId(body.id);
         }
@@ -70,7 +68,7 @@ public class ReplistSteps {
         log.debug("------>  url = " + url);
         final ResponseEntity<Void> responseEntity =
                 restTemplate.exchange(url, HttpMethod.DELETE, createHttpEntityWithToken(), Void.class);
-        log.debug("responseEntity = " + responseEntity);
+        Utils.json("Response entity:" , responseEntity);
         world.setResponse(responseEntity);
     }
 
@@ -85,13 +83,8 @@ public class ReplistSteps {
                 });
 
         if (responseEntity.getBody() != null) {
-            log.debug("responseEntity = " + responseEntity);
-            Utils.json(responseEntity);
+            Utils.json("Response entity:" , responseEntity);
             List<Replist> list = responseEntity.getBody();
-            for (int i = 0; i < list.size(); i++) {
-                Replist replist = list.get(i);
-                Utils.json(replist);
-            }
             world.setCounter(list.size());
         }
         world.setResponse(responseEntity);
@@ -108,9 +101,8 @@ public class ReplistSteps {
                 Replist.class);
 
         if (responseEntity.getBody() != null) {
-            log.debug("responseEntity = " + responseEntity);
+            Utils.json("Response entity:" , responseEntity);
             Replist body = responseEntity.getBody();
-            log.debug("body : " + body);
             Utils.json(body);
             world.setReplist(body);
             world.setListId(body.id);
@@ -148,6 +140,7 @@ public class ReplistSteps {
             log.debug("", responseEntity.getBody());
 
         }
+
         world.setResponse(responseEntity);
     }
 

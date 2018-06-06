@@ -1,7 +1,7 @@
 Feature: Smoke test develop environment
 
   Background:
-    Given Username: "antonio.signore"
+    Given Username: "test.user"
     Given Connect to: "session"
     Given StoreId: "US470179"
     Given DeviceId
@@ -10,7 +10,6 @@ Feature: Smoke test develop environment
     Given BundleId: "com.adidas.dev.replenishment"
     Given PushToken: "push_token"
 
-  @SmokeTest
   Scenario: Create list, add product, add items need flow
     When I create a session
     Then I get a CREATED response

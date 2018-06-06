@@ -1,7 +1,7 @@
 Feature: smoke test country service
 
   Background:
-    Given Host: "http://develop.country-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net"
+    Given Connect to: "country"
 
   @SmokeTest
   Scenario: get countries

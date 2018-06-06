@@ -47,6 +47,8 @@ public class SizesSteps {
     @When("^I get sizePage \"([^\"]*)\"$")
     public void iGetSizePage(String arg0) {
         String url = world.getHost() + "/sizes/sizePage/" + arg0;
+        System.out.println("url = " + url);
+
         final ResponseEntity<SalesSizesMultiCountries> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
                         SalesSizesMultiCountries.class);
@@ -54,7 +56,6 @@ public class SizesSteps {
         assert responseEntity != null;
         if (responseEntity.getBody() != null) {
             Utils.json("Response Entity :", responseEntity);
-            Utils.json("Response Body   :", responseEntity.getBody());
             world.setResponse(responseEntity);
             SalesSizesMultiCountries body = responseEntity.getBody();
             Utils.json("sizePage", body);
@@ -65,6 +66,9 @@ public class SizesSteps {
     @When("^I get sizePage \"([^\"]*)\" and scale \"([^\"]*)\"$")
     public void iGetSizePageAndScale(String arg0, String arg1) {
         String url = world.getHost() + "/sizes/sizePage/" + arg0 + "/scale/" + arg1;
+
+        log.debug("URL = " + url);
+
         final ResponseEntity<SalesSizesCountry> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world),
                         SalesSizesCountry.class);
@@ -72,10 +76,8 @@ public class SizesSteps {
         assert responseEntity != null;
         if (responseEntity.getBody() != null) {
             Utils.json("Response Entity :", responseEntity);
-            Utils.json("Response Body   :", responseEntity.getBody());
             world.setResponse(responseEntity);
             SalesSizesCountry body = responseEntity.getBody();
-            Utils.json("sizePage", body);
             assert body != null;
         }
     }

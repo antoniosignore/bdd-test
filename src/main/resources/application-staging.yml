@@ -1,0 +1,20 @@
+logging:
+  level:
+    com.jambit.les.tutorial.rest: DEBUG
+    org.springframework.security: DEBUG
+
+sam:
+  services:
+    size:
+      url: http://staging.size-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+    session:
+      url: http://staging.session-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+    replist:
+      url: http://staging.replist-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+    country:
+      url: http://staging.country-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+    article:
+      url: http://staging.article-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+    store:
+      url: http://staging.store-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+

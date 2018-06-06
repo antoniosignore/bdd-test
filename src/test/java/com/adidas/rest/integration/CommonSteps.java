@@ -1,7 +1,10 @@
 package com.adidas.rest.integration;
 
 import com.adidas.configuration.EnvironmentConfiguration;
+import com.adidas.rest.integration.utils.Utils;
 import com.adidas.sessions.dto.Role;
+import com.google.common.io.Files;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,8 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.File;
+import java.nio.charset.Charset;
 import java.util.UUID;
 
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
+import static net.javacrumbs.jsonunit.JsonAssert.whenIgnoringPaths;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -78,6 +85,8 @@ public class CommonSteps {
     @Then("^(?:I get|the user gets) a (.*) response$")
     public void I_get_a__response(final String statusCode) throws Throwable {
         final ResponseEntity response = world.getResponse();
+
+        Utils.json("Response:", response.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.valueOf(statusCode)));
     }
 
@@ -133,4 +142,29 @@ public class CommonSteps {
     }
 
 
+    @Then("^Expected response is the same as in file: \"([^\"]*)\"$")
+    public void iAssertResponseWith(String expectedJsonFile) throws Throwable {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(expectedJsonFile).getFile());
+        String json = Files.toString(file, Charset.forName("UTF-8"));
+        log.debug("json = " + json);
+        log.debug("world.getResponse().getBody() = " + world.getResponse().getBody());
+        assertJsonEquals(json, Utils.jsonString(world.getResponse().getBody()));
+    }
+
+    @Then("^Expected response is the same as in file: \"([^\"]*)\" excluding \"([^\"]*)\"$")
+    public void expectedResponseIsTheSameAsInFileExcluding(String expectedJsonFile, String arg1) throws Throwable {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(expectedJsonFile).getFile());
+        String json = Files.toString(file, Charset.forName("UTF-8"));
+        log.debug("json = " + json);
+        log.debug("world.getResponse().getBody() = " + world.getResponse().getBody());
+
+        final String[] split = arg1.split(",");
+
+        log.debug("split = " + split);
+
+        assertJsonEquals(json, Utils.jsonString(world.getResponse().getBody()),
+                whenIgnoringPaths(split));
+    }
 }

@@ -12,19 +12,25 @@ Feature: create profile
 
   @SmokeTest
   Scenario: Create and Delete Session
-#    When I get a session by device id - need to manage the exception
-#    Then I get a NOT_FOUND response
+
     When I create a session
     Then I get a CREATED response
+    Then Expected response is the same as in file: "json/session_created.json" excluding "authToken,deviceId,user.name"
+
     When I get a session by device id
     Then I get a OK response
     When I patch a session
     Then I get a OK response
+    Then Expected response is the same as in file: "json/session_created_patched.json" excluding "authToken,deviceId,user.name"
+
+
     When I get a session by device id
     Then I get a OK response
-    When I get a session by store id
+    Then Expected response is the same as in file: "json/session_created_patched.json" excluding "authToken,deviceId,user.name"
+
+    When I get sessions by store id
     Then I get a OK response
-    When I get a session by store id and role
+    When I get sessions by store id and role
     Then I get a OK response
     When I delete a session
     Then I get a OK response

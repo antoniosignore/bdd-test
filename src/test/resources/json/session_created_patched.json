@@ -1,0 +1,18 @@
+{
+  "deviceId": "d8a949f8-be9b-4b79-bd4d-24adbccb1cda",
+  "authToken": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI3MjhkY2JhZS1lMzcwLTQ2ZjItYmU0Zi03NmQ0OWI2MTU3MGUiLCJpYXQiOjE1MjgyODM1OTksInN1YiI6InRlc3Rlcjo2NzQ0MzA0YS1kYWEzLTRhNzUtYWFkZC1jMWIwYWIwNjQwYWMiLCJpc3MiOiJhZGlkYXMiLCJyb2xlIjoiU2FsZXNGbG9vciIsInVzZXJuYW1lIjoidGVzdGVyOjY3NDQzMDRhLWRhYTMtNGE3NS1hYWRkLWMxYjBhYjA2NDBhYyIsInN0b3JlSWQiOiJVUzQ3MDE3OSIsImRldmljZUlkIjoiZDhhOTQ5ZjgtYmU5Yi00Yjc5LWJkNGQtMjRhZGJjY2IxY2RhIiwic2l6ZVNjYWxlIjoiQ04iLCJleHAiOjE1MjkyODM1OTl9.VJbQyN4QuOr5FcI9n0UaX5avFSYXtDxQfnuimk602_9pz-5U2FOr8XemT49lD74cQp-W4NqINAfQck5aydhmbg",
+  "user": {
+    "name": "tester:6744304a-daa3-4a75-aadd-c1b0ab0640ac",
+    "role": "SalesFloor",
+    "scale": "CN",
+    "storeId": "US470179"
+  },
+  "appData": [
+    {
+      "bundleId": "com.adidas.dev.replenishment",
+      "values": {
+        "pushtoken": "push_token"
+      }
+    }
+  ]
+}

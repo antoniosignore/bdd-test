@@ -57,22 +57,12 @@ public class SessionSteps {
         return new HttpEntity<>(createDefaultSessionDTO());
     }
 
-    @When("^I create a session$")
-    public void I_create_a_session() {
-
-        String url = world.getHost() + "/sessions";
-        log.debug("url = " + url);
-
-        final ResponseEntity<SessionDTO> responseEntity =
-                restTemplate.exchange(url, HttpMethod.POST, createHttpEntity(world.getUsername()), SessionDTO.class);
-        processResponse(responseEntity);
-        world.setResponse(responseEntity);
-    }
-
     private void processResponse(ResponseEntity<SessionDTO> responseEntity) {
         assert responseEntity != null;
         if (responseEntity.getBody() != null) {
-            Utils.json("Response Entity :", responseEntity);
+
+            Utils.printResponse(responseEntity);
+
             world.setResponse(responseEntity);
             SessionDTO body = responseEntity.getBody();
             world.setSession(body);
@@ -84,36 +74,54 @@ public class SessionSteps {
         }
     }
 
+    @When("^I create a session$")
+    public void I_create_a_session() {
+
+        String url = world.getHost() + "/sessions";
+        log.debug("URL : " + url);
+
+        final ResponseEntity<SessionDTO> responseEntity =
+                restTemplate.exchange(url, HttpMethod.POST, createHttpEntity(world.getUsername()), SessionDTO.class);
+        processResponse(responseEntity);
+        world.setResponse(responseEntity);
+    }
+
+
+
     @When("^I get a session by device id$")
     public void I_get_a_session() {
-        log.debug("\n############### SessionSteps.I_get_a_session");
+
         String url = world.getHost() + "/sessions/" + world.getDeviceId();
+        log.debug("URL : " + url);
+
         final ResponseEntity<SessionDTO> responseEntity = restTemplate.getForEntity(url, SessionDTO.class);
         processResponse(responseEntity);
     }
 
-    @When("^I get a session by store id$")
+    @When("^I get sessions by store id$")
     public void I_get_sessions_by_store() {
-        log.debug("\n############### SessionSteps.I_get_sessions_by_store");
+
         String url = world.getHost() + "/sessions/store/" + world.getStoreId();
+        log.debug("URL : " + url);
+
         final ResponseEntity<SessionsListResponse> responseEntity = restTemplate.getForEntity(url, SessionsListResponse.class);
         assert responseEntity != null;
         if (responseEntity.getBody() != null) {
-            Utils.json("Response Entity :", responseEntity);
+            Utils.printResponse(responseEntity);
             world.setResponse(responseEntity);
             SessionsListResponse body = responseEntity.getBody();
             assert body != null;
         }
     }
 
-    @When("^I get a session by store id and role$")
+
+    @When("^I get sessions by store id and role$")
     public void I_get_sessions_by_store_and_role() {
-        log.debug("\n############### SessionSteps.I_get_sessions_by_store_and_role");
         String url = world.getHost() + "/sessions/store/" + world.getStoreId() + "/role/" + world.getRole().toString();
         final ResponseEntity<SessionsListResponse> responseEntity = restTemplate.getForEntity(url, SessionsListResponse.class);
         assert responseEntity != null;
         if (responseEntity.getBody() != null) {
-            Utils.json("Response Entity :", responseEntity);
+            Utils.printResponse(responseEntity);
             world.setResponse(responseEntity);
             SessionsListResponse body = responseEntity.getBody();
             assert body != null;

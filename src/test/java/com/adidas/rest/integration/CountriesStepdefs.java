@@ -25,9 +25,7 @@ public class CountriesStepdefs {
     @When("^I get all countries$")
     public void get() {
         String url = world.getHost() + "/countries";
-
         log.debug("url = " + url);
-
         final ResponseEntity<Set<Country>> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, Utils.createHttpEntityWithToken(world), new ParameterizedTypeReference<Set<Country>>() {
                 });

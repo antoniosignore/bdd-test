@@ -1,0 +1,11 @@
+{
+  "deviceId": "5c804ae3-4af8-46b1-bfbd-4466750128b8",
+  "authToken": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJjODQyNmQ1OS0xOWI2LTQzZTgtYjM2NC1kYzdmMzk2MTkwYjMiLCJpYXQiOjE1MjgyODE4NTksInN1YiI6InRlc3RlcjphZmMxMDlhNC1jOTc4LTQ2YmMtODUwZS0yZGNmNGVkODg5N2IiLCJpc3MiOiJhZGlkYXMiLCJyb2xlIjoiU2FsZXNGbG9vciIsInVzZXJuYW1lIjoidGVzdGVyOmFmYzEwOWE0LWM5NzgtNDZiYy04NTBlLTJkY2Y0ZWQ4ODk3YiIsInN0b3JlSWQiOiJVUzQ3MDE3OSIsImRldmljZUlkIjoiNWM4MDRhZTMtNGFmOC00NmIxLWJmYmQtNDQ2Njc1MDEyOGI4Iiwic2l6ZVNjYWxlIjoiQ04iLCJleHAiOjE1MjkyODE4NTl9.-WJ-MOS81DOB_yjMKqwvyD-kYbcMu3y6hsfxR1n-5fqUrNvgI0ymQBHlF0a2jwdqH78D4N5cXw3rhzDZnAZZgw",
+  "user": {
+    "name": "tester:afc109a4-c978-46bc-850e-2dcf4ed8897b",
+    "role": "SalesFloor",
+    "scale": "CN",
+    "storeId": "US470179"
+  },
+  "appData": []
+}

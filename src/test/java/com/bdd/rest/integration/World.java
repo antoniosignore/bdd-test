@@ -3,6 +3,9 @@ package com.bdd.rest.integration;
 import com.bdd.model.model.ArticleBean;
 import com.bdd.model.model.Country;
 import com.bdd.model.model.Replist;
+import com.bdd.representations.beans.Account;
+import com.bdd.representations.beans.AccountBean;
+import com.bdd.representations.beans.SFResponse;
 import com.bdd.sessions.dto.Role;
 import com.bdd.sessions.dto.SessionDTO;
 import lombok.Data;
@@ -38,5 +41,9 @@ public class World {
     private String branch;
     private String listId;
     private Country country;
+
+    private String accountName;
+    private SFResponse sfresponse;
+
 
 }

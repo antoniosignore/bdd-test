@@ -1,20 +1,13 @@
 Feature: Smoke test happy trail
 
   Background:
-    Given Username: "test.user"
-    Given Connect to: "session"
-    Given StoreId: "US470179"
-    Given DeviceId
-    Given Role: "SalesFloor"
-    Given Scale: "CN"
-    Given BundleId: "com.adidas.dev.replenishment"
-    Given PushToken: "push_token"
+    Given Host property: "salesforce-integration"
+    Given Account name:  "testuser-42"
 
-  Scenario: Create list, add product, add items need flow
+  Scenario: Create account, getaccount, get all accounts, update account, delete account via REST
 
-    When I create a session
+    When I create a salesforce user
     Then I get a CREATED response
-    When I get a session by device id
     Then I get a OK response
     When I patch a session
     Then I get a OK response

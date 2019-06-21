@@ -40,6 +40,9 @@ public class ReplistSteps {
         return new HttpEntity<>(httpHeaders);
     }
 
+
+//    I create a salesforce user
+
     @When("^I create a replist with name: \"([^\"]*)\"$")
     public void I_create_a_replist(String replistName) throws Throwable {
         String url = world.getHost() + "/replists";

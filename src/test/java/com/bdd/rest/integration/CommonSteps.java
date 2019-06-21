@@ -4,7 +4,6 @@ import com.bdd.configuration.EnvironmentConfiguration;
 import com.bdd.rest.integration.utils.Utils;
 import com.bdd.sessions.dto.Role;
 import com.google.common.io.Files;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -40,26 +39,11 @@ public class CommonSteps {
         world.setHost(host);
     }
 
-    @Given("^Connect to: \"([^\"]*)\"$")
-    public void connext(String host) {
+    @Given("^Host property: \"([^\"]*)\"$")
+    public void set_host(String host) {
         switch (host) {
-            case "session":
-                world.setHost(environmentConfiguration.getSessionUrl());
-                break;
-            case "replist":
-                world.setHost(environmentConfiguration.getReplistUrl());
-                break;
-            case "size":
-                world.setHost(environmentConfiguration.getSizeUrl());
-                break;
-            case "country":
-                world.setHost(environmentConfiguration.getCountryUrl());
-                break;
-            case "article":
-                world.setHost(environmentConfiguration.getArticleUrl());
-                break;
-            case "store":
-                world.setHost(environmentConfiguration.getStoreUrl());
+            case "salesforce-integration":
+                world.setHost(environmentConfiguration.getSalesforceIntegration());
                 break;
         }
         log.debug("--------------> HOST = " + world.getHost());
@@ -88,6 +72,11 @@ public class CommonSteps {
 
         Utils.json("Response:", response.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.valueOf(statusCode)));
+    }
+
+    @Given("^Account name: \"([^\"]*)\"$")
+    public void accountName(String  name) throws Throwable {
+        world.setAccountName(name);
     }
 
     @Given("^StoreId: \"([^\"]*)\"$")

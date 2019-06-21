@@ -3,17 +3,6 @@ logging:
     com.jambit.les.tutorial.rest: DEBUG
     org.springframework.security: DEBUG
 
-sam:
-  services:
-    size:
-      url: http://develop.size-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
-    session:
-      url: http://develop.session-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
-    replist:
-      url: http://develop.replist-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
-    country:
-      url: http://develop.country-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
-    article:
-      url: http://develop.article-service.sam.uonr0.k8s.asgard.dub.aws.k8s.3stripes.net
-    store:
-      url: http://staging.store-service.sam-stg.rfki6.k8s.asgard.dub.aws.k8s.3stripes.net
+services:
+  salesforce-integration:
+    url: http://192.168.2.113:9000

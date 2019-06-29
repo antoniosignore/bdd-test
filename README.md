@@ -1,3 +1,3 @@
-# SAM Backend integration bdd
+# Cucumber bdd test framework
 
 
